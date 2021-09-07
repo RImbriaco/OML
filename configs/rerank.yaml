@@ -1,0 +1,32 @@
+path_to_desc: '/media/raffaele/AID/experiments/outputs/AID_1e-4_resnet50_max_none_multiAP.npy'
+dataset: 'AID'
+seed: 24
+rerank_scheme: ['db']
+
+retrieval:
+  chunk_size: 100
+  seed: 24
+  path_gt: '/media/raffaele/BigEarthNet/Splits/with_labels_distance.h5'
+  visualize: 10
+visualization:
+  img_path:
+
+qe:
+  k: 10
+
+aqe:
+  k: 10
+  alpha: 1
+
+csqe:
+  k: 1
+  ks: 2
+  kc: 1
+  sim_affinity_path: None
+  label_affinity_path: None
+  precomputed_graph_path: None
+  labels_csv_path: '/media/raffaele/AID/test.csv'
+
+ja:
+  save_path: '/media/raffaele/BEN/rerank/'
+  labels_csv_path: '/media/raffaele/UCM/test.csv'

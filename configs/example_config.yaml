@@ -1,0 +1,114 @@
+## General settings
+# Specify whether to train, test or visualize the results.
+mode: 'test'
+# Path to the dataset (do not terminate with /).
+root_dir: '/media/raffaele/AID'
+# CUDA device to run on.
+device: [0]
+# Additional tag for naming the outputs.
+experiment: 'multiAP'
+
+## Model settings
+model:
+  # Backbone architecture
+  backbone: 'resnet50'
+  output_stride: 32
+  # Attention module (none, cbam, da).
+  module: 'none'
+  # Pooling operation (avg, max, gem).
+  pooling: 'max'
+  # Dimensionality of parts if using more than 1 branch.
+  part_dim: 256
+  # Split the tensor into global and/or local parts similarly to
+  # Multi-Granularity Network.
+  # Ex. Global only [[1,1,1]]
+  # Ex. Global + 4 local splits across height and width [[1,1,1], [1,2,2]]
+  parts: [[1, 1, 1]]
+  num_classes: 17
+  # Whether to use pre-trained weights or not.
+  pretrained: True
+  # Input image channels.
+  channels: 3
+
+## General training settings.
+train:
+  # Specifiy the dataset. Used for compatibility with BigEarthNet.
+  nomenclature: 'AID'
+  # Whether to use a classification loss or not (xent, ml_xent, none)
+  id_loss:
+  # Whether to use a metric loss or not (contrastive_avg, triplet_avg, triplet_hard, oml)
+  metric_loss: 'oml'
+  # Individual weighting of each loss w1 * id_loss + w2 * metric_loss
+  loss_weight: [1, 1]
+  # similarity threshold for label mining.
+  sim_threshold: 0.5
+  # Label mining strategy.
+  mining_strategy: 'ji'
+  # Optimizer (adam or sgd).
+  optimizer: 'adam'
+  learning_rate: 1e-4
+  epochs: 60
+  batch_size: 72
+  dataset: 'AID'
+  update_iter: 1
+  resume: False
+  checkpoint_step: 20
+
+## General test settings.
+test:
+  nomenclature: 'AID'
+  batch_size: 72
+  dataset: 'AID'
+  # Path where checkpoints are saved.
+  ckpt_directory: '/media/raffaele/AID/experiments/checkpoints/'
+  # Save retrieval outputs.
+  save: True
+  # Path where outputs are saved.
+  save_path: '/media/raffaele/AID/experiments/outputs/'
+  # Deprecated settings.
+  global:
+    multi_scale: [1]
+  retrieval:
+    # Batch size for testing BigEarthNet.
+    chunk_size: 250
+    # Query/database random initialization seed.
+    seed: 24
+    # Path to ground truth file. See /common/preprocessing/retrieval.py
+    path_gt: '/media/rimbriaco/Seagate Expansion Drive1/RemoteSensing/BigEarthNet/Splits/retrieval_sm2/gt.h5'
+    # Top-k to visualize.
+    visualize: 10
+  visualization:
+    # Path to images.
+    img_path: '/home/rimbriaco/PycharmProjects/DATA/RS/AID/test/'
+
+display:
+  summary_step: 100
+  display_step: 10
+
+## General augmentation settings.
+augment_config:
+    use_transform: False
+    # Image level - probabilities
+    h_flip: 0.5
+    v_flip: 0.0
+    rotate: 0.0
+
+    # Pixel level - probabilities
+    blur: 0.1
+    brightness: 0.1
+    contrast: 0.1
+    gamma: 0.1
+
+    # Compose normalize - boolean
+    normalize: 1
+    compose: 1
+
+    # Image size
+    image_size: 120
+
+    # Random Erasing
+    random_erasing:
+      p: 0.0
+      sl: 0.02
+      sh: 0.4
+      r1: 0.3
