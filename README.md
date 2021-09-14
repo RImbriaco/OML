@@ -2,7 +2,7 @@
 
 This repository contains the implementation of the methods described in: 
 #### Towards Multi-Label Image Retrieval for Remote Sensing 
-R. Imbriaco, C. Sebastian, E. Bondarev, P.H.N de With [IEEE](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9491804)
+R. Imbriaco, C. Sebastian, E. Bondarev, P.H.N de With [IEEE](https://ieeexplore.ieee.org/document/9491804)
 
 ## Setup
 
